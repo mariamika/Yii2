@@ -13,7 +13,7 @@ use Yii;
  * @property int $role_id
  * @property Role $role
  */
-class Users extends \yii\db\ActiveRecord
+class UsersStudy extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -50,7 +50,8 @@ class Users extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getRole(){
+    public function getRole()
+    {
         return $this->hasOne(Role::className(), ['id' => 'role_id']);
     }
 }

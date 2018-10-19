@@ -5,14 +5,14 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `users`.
  */
-class m181016_112747_create_users_table extends Migration
+class m181016_112747_create_usersStudy_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('users', [
+        $this->createTable('usersStudy', [
             'id' => $this->primaryKey(),
             'login' => $this->string(50)->notNull(),
             'password' => $this->string(100)->notNull(),
