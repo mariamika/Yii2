@@ -2,7 +2,7 @@
 namespace app\models;
 use yii\base\Model;
 
-class Task extends Model
+class MyModel extends Model
 {
     public $country;
     public $token;

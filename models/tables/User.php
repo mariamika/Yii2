@@ -2,8 +2,6 @@
 
 namespace app\models\tables;
 
-use Yii;
-
 /**
  * This is the model class for table "user".
  *
@@ -30,6 +28,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
+            [['username','password'],'required'],
             [['username'], 'string', 'max' => 50],
             [['password'], 'string', 'max' => 100],
             [['authKey', 'accessToken'], 'string', 'max' => 150],
@@ -70,17 +69,13 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 return new static($user);
             }
         }
-
         return null;
     }
 
     public static function findByUsername($username)
     {
-        $params = [':username' => $username];
-        $sql = \Yii::$app->db->createCommand('select username from user where username = :username', $params)
-        ->queryOne();
-
-        if (strcasecmp($sql['username'],$username) === 0) {
+        $name = User::findOne(['username' => $username]);
+        if (strcasecmp($name->username,$username) === 0) {
             return new static(self::$users);
         }
         return null;
@@ -118,6 +113,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        if (User::findOne(['password' => $password])){
+            return true;
+        }
+        return false;
     }
 }
