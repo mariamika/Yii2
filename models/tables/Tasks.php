@@ -7,10 +7,12 @@ namespace app\models\tables;
  *
  * @property int $id
  * @property string $taskName
- * @property string $performer
  * @property int $priority
  * @property string $dateCreate
  * @property string $dateDeadline
+ * @property int $namePerformer
+ *
+ * @property Performer
  */
 class Tasks extends \yii\db\ActiveRecord
 {
@@ -28,10 +30,11 @@ class Tasks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['taskName', 'performer', 'priority', 'dateCreate', 'dateDeadline'], 'required'],
+            [['taskName', 'namePerformer', 'priority', 'dateCreate', 'dateDeadline'], 'required'],
             [['priority'], 'integer'],
+            [['namePerformer'],'integer'],
             [['dateCreate', 'dateDeadline'], 'safe'],
-            [['taskName', 'performer'], 'string', 'max' => 100],
+            [['taskName'], 'string', 'max' => 100],
         ];
     }
 
@@ -42,11 +45,15 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'taskName' => 'MyModel Name',
-            'performer' => 'Performer',
+            'taskName' => 'Task Name',
+            'namePerformer' => 'Performer',
             'priority' => 'Priority',
             'dateCreate' => 'Date Create',
             'dateDeadline' => 'Date Deadline',
         ];
+    }
+
+    public function getPerformer(){
+        return $this->hasOne(Performer::className(), ['index' => 'namePerformer']);
     }
 }

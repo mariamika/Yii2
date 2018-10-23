@@ -24,7 +24,11 @@ class TaskController extends Controller
 
     public function actionTask(){
 
-        $result = Tasks::find()->where('month(dateCreate) = month(DATE(now()))')->all();
+        $result = Tasks::find()
+            ->joinWith(['performer'])
+            ->select(['tasks.*','performer.*'])
+            ->where('month(dateCreate) = month(DATE(now()))')->all();
+
         return $this->render('index',['content' => $result]);
     }
 }
