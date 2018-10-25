@@ -69,8 +69,6 @@ class AdminTaskController extends Controller
         $model = new Tasks();
         $items = ArrayHelper::map(Performer::find()->all(),'index','name');
 
-        //echo '<pre>'; var_dump($items); exit;
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

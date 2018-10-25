@@ -1,28 +1,11 @@
 <?php
 namespace app\controllers;
 use app\models\tables\Tasks;
-use app\models\MyModel;
 use yii\web\Controller;
 use yii\data\ActiveDataProvider;
 
 class TaskController extends Controller
 {
-    public function actionValidate(){
-
-        $model = new MyModel();
-        $model->country = 'dbd';
-        $model->token = '/*';
-        var_dump($model->token,$model->country);
-        var_dump($model->validate());
-        var_dump($model->getErrors());
-        exit;
-
-//        return $this->render('index', [
-//            'content' => 'Приветствую!!! =)',
-//
-//        ]);
-    }
-
     public function actionIndex(){
 
         $query = Tasks::find()

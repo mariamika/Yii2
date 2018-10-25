@@ -13,7 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="tasks-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Tasks', ['create'], ['class' => 'btn btn-success']) ?>
@@ -24,13 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'taskName',
             'priority',
             'dateCreate',
             'dateDeadline',
-            'performer.name:text:performer',
+            ['attribute' => 'performer',
+             'label' => 'Performer',
+             'value' => 'performer.name'],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

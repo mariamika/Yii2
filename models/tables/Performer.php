@@ -2,16 +2,31 @@
 
 namespace app\models\tables;
 
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
+
 /**
  * This is the model class for table "performer".
  *
  * @property int $index
  * @property string $name
+ * @property string $email
  *
  * @property Tasks[] $tasks
  */
 class Performer extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -26,8 +41,8 @@ class Performer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 150],
+            [['name','email'], 'required'],
+            [['name','email'], 'string', 'max' => 150],
         ];
     }
 
@@ -39,6 +54,7 @@ class Performer extends \yii\db\ActiveRecord
         return [
             'index' => 'Index',
             'name' => 'Name',
+            'email' => 'Email'
         ];
     }
 

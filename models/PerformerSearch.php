@@ -19,6 +19,7 @@ class PerformerSearch extends Performer
         return [
             [['index'], 'integer'],
             [['name'], 'safe'],
+            [['email'], 'email']
         ];
     }
 
@@ -64,7 +65,8 @@ class PerformerSearch extends Performer
             'index' => $this->index,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+              ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
     }

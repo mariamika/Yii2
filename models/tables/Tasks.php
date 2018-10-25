@@ -2,6 +2,9 @@
 
 namespace app\models\tables;
 
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
+
 /**
  * This is the model class for table "tasks".
  *
@@ -16,6 +19,17 @@ namespace app\models\tables;
  */
 class Tasks extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

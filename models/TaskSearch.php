@@ -11,6 +11,8 @@ use app\models\tables\Tasks;
  */
 class TaskSearch extends Tasks
 {
+    public $performer;
+
     /**
      * {@inheritdoc}
      */
@@ -20,6 +22,7 @@ class TaskSearch extends Tasks
             [['id', 'priority', 'namePerformer'], 'integer'],
             [['taskName'],'string'],
             [['dateCreate', 'dateDeadline'], 'safe'],
+            [['performer'], 'safe']
         ];
     }
 
@@ -54,6 +57,11 @@ class TaskSearch extends Tasks
             ]
         ]);
 
+        $dataProvider->sort->attributes['performer'] = [
+            'asc' => ['performer.name' => SORT_ASC],
+            'desc' => ['performer.name' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -66,12 +74,12 @@ class TaskSearch extends Tasks
         $query->andFilterWhere([
             'id' => $this->id,
             'priority' => $this->priority,
-            'dateCreate' => $this->dateCreate,
-            'dateDeadline' => $this->dateDeadline,
-            //'namePerformer' => $this->namePerformer,
         ]);
 
-        $query->andFilterWhere(['like', 'taskName', $this->taskName]);
+        $query->andFilterWhere(['like', 'taskName', $this->taskName])
+              ->andFilterWhere(['like', 'dateCreate', $this->dateCreate])
+              ->andFilterWhere(['like', 'dateDeadline', $this->dateDeadline])
+              ->andFilterWhere(['like', 'performer.name', $this->performer]);
 
         return $dataProvider;
     }
