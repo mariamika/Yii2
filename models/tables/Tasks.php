@@ -14,7 +14,8 @@ use yii\db\Expression;
  * @property string $dateCreate
  * @property string $dateDeadline
  * @property int $namePerformer
- *
+ * @property string $created_at
+ * @property string $updated_at
  * @property Performer
  */
 class Tasks extends \yii\db\ActiveRecord

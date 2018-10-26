@@ -13,6 +13,8 @@ use yii\db\Expression;
  * @property string $password
  * @property string $authKey
  * @property string $accessToken
+ * @property string $created_at
+ * @property string $updated_at
  */
 class Users extends \yii\db\ActiveRecord
 {

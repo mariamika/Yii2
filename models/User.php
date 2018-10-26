@@ -10,15 +10,17 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public $password;
     public $authKey;
     public $accessToken;
+    public $created_at;
+    public $updated_at;
 
-    private static $users = false;
+    //private static $users = false;
 
     /**
      * {@inheritdoc}
      */
     public static function findIdentity($id)
     {
-        if ($users = Users::findOne(['username' => $id])){
+        if ($users = Users::findOne(['id' => $id])){
             return new static($users);
         }
 

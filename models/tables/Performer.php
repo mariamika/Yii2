@@ -11,7 +11,8 @@ use yii\db\Expression;
  * @property int $index
  * @property string $name
  * @property string $email
- *
+ * @property string $created_at
+ * @property string $updated_at
  * @property Tasks[] $tasks
  */
 class Performer extends \yii\db\ActiveRecord
