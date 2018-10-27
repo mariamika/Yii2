@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Registration;
+use app\models\tables\Users;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -124,5 +127,22 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionRegistration(){
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        $model = new Registration();
+        if($model->load(\Yii::$app->request->post()) && $model->validate()){
+            $user = new Users();
+            $user->username = $model->username;
+            $user->password = \Yii::$app->security->generatePasswordHash($model->password);
+            if($user->save()){
+                return $this->goHome();
+            }
+        }
+
+        return $this->render('registration', compact('model'));
     }
 }

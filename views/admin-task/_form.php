@@ -21,9 +21,17 @@ use yii\widgets\ActiveForm;
             '4' => 'Необязательно к исполнению'],
         ['prompt' => '-Choose a Priority-']) ?>
 
-    <?= $form->field($model, 'dateCreate')->textInput(['type' => 'date']) ?>
+    <?= $form->field($model, 'dateCreate')->widget(
+            \yii\jui\DatePicker::className(),
+            ['dateFormat' => 'yyyy-MM-dd',
+             'language' => 'ru'])
+    ?>
 
-    <?= $form->field($model, 'dateDeadline')->textInput(['type' => 'date']) ?>
+    <?= $form->field($model, 'dateDeadline')->widget(
+            \yii\jui\DatePicker::className(),
+            ['dateFormat' => 'yyyy-MM-dd',
+             'language' =>'ru'])
+    ?>
 
     <?= $form->field($model, 'namePerformer')->dropDownList($items, ['prompt' => '-Choose a Performer-']) ?>
 

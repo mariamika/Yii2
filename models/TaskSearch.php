@@ -21,8 +21,7 @@ class TaskSearch extends Tasks
         return [
             [['id', 'priority', 'namePerformer'], 'integer'],
             [['taskName'],'string'],
-            [['dateCreate', 'dateDeadline'], 'safe'],
-            [['performer'], 'safe']
+            [['dateCreate', 'dateDeadline', 'performer'], 'safe'],
         ];
     }
 

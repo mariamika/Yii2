@@ -8,10 +8,13 @@ class TaskController extends Controller
 {
     public function actionIndex(){
 
+        $performer = \Yii::$app->user->id;
+
         $query = Tasks::find()
             ->joinWith(['performer'])
             ->select(['tasks.*','performer.*'])
-            ->where('month(dateCreate) = month(DATE(now()))');
+            ->where('');
+            //->where('month(dateCreate) = month(DATE(now()))');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

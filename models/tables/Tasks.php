@@ -45,10 +45,10 @@ class Tasks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['taskName', 'namePerformer', 'priority', 'dateCreate', 'dateDeadline'], 'required'],
-            [['priority'], 'integer'],
-            [['namePerformer'],'integer'],
-            [['dateCreate', 'dateDeadline'], 'safe'],
+            [['taskName', 'namePerformer', 'priority', 'dateCreate'], 'required'],
+            [['priority', 'namePerformer'], 'integer'],
+            [['dateCreate'], 'safe'],
+            [['dateDeadline'], 'app\components\validators\DeadlineValidator'],
             [['taskName'], 'string', 'max' => 100],
         ];
     }
