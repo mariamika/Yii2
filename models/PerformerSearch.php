@@ -17,7 +17,6 @@ class PerformerSearch extends Performer
     public function rules()
     {
         return [
-            [['index'], 'integer'],
             [['name'], 'safe'],
             [['email'], 'email']
         ];
@@ -59,11 +58,6 @@ class PerformerSearch extends Performer
             // $query->where('0=1');
             return $dataProvider;
         }
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'index' => $this->index,
-        ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
               ->andFilterWhere(['like', 'email', $this->email]);

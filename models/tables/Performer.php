@@ -13,7 +13,9 @@ use yii\db\Expression;
  * @property string $email
  * @property string $created_at
  * @property string $updated_at
+ * @proprerty int $id_users
  * @property Tasks[] $tasks
+ * @property Users
  */
 class Performer extends \yii\db\ActiveRecord
 {
@@ -43,6 +45,7 @@ class Performer extends \yii\db\ActiveRecord
     {
         return [
             [['name','email'], 'required'],
+            [['email'], 'email'],
             [['name','email'], 'string', 'max' => 150],
         ];
     }
@@ -53,7 +56,6 @@ class Performer extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'index' => 'Index',
             'name' => 'Name',
             'email' => 'Email'
         ];
@@ -65,5 +67,9 @@ class Performer extends \yii\db\ActiveRecord
     public function getTasks()
     {
         return $this->hasMany(Tasks::className(), ['namePerformer' => 'index']);
+    }
+
+    public function getUsers(){
+        return $this->hasOne(Users::className(),['id' => 'id_users']);
     }
 }

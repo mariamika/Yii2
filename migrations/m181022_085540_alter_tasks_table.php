@@ -14,7 +14,7 @@ class m181022_085540_alter_tasks_table extends Migration
     {
         $this->dropColumn('tasks','performer');
         $this->addColumn('tasks','namePerformer','integer');
-        $this->addForeignKey('fk_tasks_performer','tasks','namePerformer','performer','id');
+        $this->addForeignKey('fk_tasks_performer','tasks','namePerformer','performer','index');
 
     }
 

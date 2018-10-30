@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\models\Registration;
 use app\models\tables\Users;
-use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;

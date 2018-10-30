@@ -16,6 +16,8 @@ use yii\web\IdentityInterface;
  * @property string $accessToken
  * @property string $created_at
  * @property string $updated_at
+ * @property string $hash_password
+ * @property Performer
  */
 class Users extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -138,6 +140,11 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        //return $this->password === \Yii::$app->security->validatePassword($password, $this->password);
+        return $this->password === $password; //У меня не работает почему-то предыдущая строчка!!!
+    }
+
+    public function getUsers(){
+        return $this->hasOne(Performer::className(),['id_users' => 'id']);
     }
 }

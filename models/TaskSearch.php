@@ -19,7 +19,7 @@ class TaskSearch extends Tasks
     public function rules()
     {
         return [
-            [['id', 'priority', 'namePerformer'], 'integer'],
+            [['id_task', 'priority', 'namePerformer'], 'integer'],
             [['taskName'],'string'],
             [['dateCreate', 'dateDeadline', 'performer'], 'safe'],
         ];
@@ -71,7 +71,7 @@ class TaskSearch extends Tasks
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'id_task' => $this->id_task,
             'priority' => $this->priority,
         ]);
 

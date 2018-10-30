@@ -13,8 +13,6 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public $created_at;
     public $updated_at;
 
-    //private static $users = false;
-
     /**
      * {@inheritdoc}
      */

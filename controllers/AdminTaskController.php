@@ -39,10 +39,15 @@ class AdminTaskController extends Controller
     {
         $searchModel = new TaskSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dependency = [
+            'class' => 'yii\caching\DbDependency',
+            'sql' => 'select max(updated_at) from tasks',
+        ];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'dependency' => $dependency,
         ]);
     }
 
@@ -69,12 +74,8 @@ class AdminTaskController extends Controller
         $model = new Tasks();
         $items = ArrayHelper::map(Performer::find()->all(),'index','name');
 
-//        if ($model->load(Yii::$app->request->post())){
-//            echo'<pre>'; var_dump($model);
-//        }
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id_task]);
         }
 
         return $this->render('create', [
@@ -96,7 +97,7 @@ class AdminTaskController extends Controller
         $items = ArrayHelper::map(Performer::find()->all(),'index','name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id_task]);
         }
 
         return $this->render('update', [

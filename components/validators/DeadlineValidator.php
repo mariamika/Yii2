@@ -6,7 +6,11 @@ class DeadlineValidator extends Validator
 {
     public function validateAttribute($model, $attribute)
     {
-        echo'<pre>'; var_dump($model,$attribute); exit;
+        $dateCreate = (int)str_replace('-','',$model->attributes['dateCreate']);
+        $dateDeadline = (int)str_replace('-','',$model->$attribute);
 
+        if ($dateDeadline<$dateCreate){
+            $this->addError($model,$attribute,'Дата завершения задачи не может быть меньше даты создания задачи!');
+        }
     }
 }
