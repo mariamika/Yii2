@@ -12,6 +12,7 @@ use app\models\tables\Tasks;
 class TaskSearch extends Tasks
 {
     public $performer;
+    public $image;
 
     /**
      * {@inheritdoc}
@@ -52,7 +53,7 @@ class TaskSearch extends Tasks
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 5
+                'pageSize' => 2
             ]
         ]);
 

@@ -5,6 +5,7 @@
 
 use app\widgets\Alert;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
@@ -29,8 +30,8 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandLabel' => Yii::t('app','MARO Task Manager'),
+        'brandUrl' => Url::toRoute('/admin/task/index'),
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -38,24 +39,22 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/admin-task/index']],
-            //['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'MyTasks', 'url' => ['/task/index']],
-            ['label' => 'Performers', 'url' => ['/admin-performer/index']],
-            //['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => \Yii::t('app','Home'), 'url' => ['/admin/task/index']],
+            ['label' => \Yii::t('app','My Tasks'), 'url' => ['/task/index']],
+            ['label' => \Yii::t('app','Performer'), 'url' => ['/admin/performer/index']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => \Yii::t('app','Login'), 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    \Yii::t('app','Logout') . ' (' . \Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
             ),
-            ['label' => 'SignUp', 'url' => ['site/registration']]
+            ['label' => \Yii::t('app','Sign Up'), 'url' => ['site/registration']]
         ],
     ]);
     NavBar::end();
@@ -72,9 +71,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-left">&copy; My Company <?= date('Y') ?> | <?= $this->render('select-language') ?></p>
     </div>
 </footer>
 

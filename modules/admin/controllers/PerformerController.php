@@ -1,20 +1,18 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
-use app\models\tables\Performer;
 use Yii;
-use app\models\tables\Tasks;
-use app\models\TaskSearch;
-use yii\helpers\ArrayHelper;
+use app\models\tables\Performer;
+use app\models\PerformerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AdminTaskController implements the CRUD actions for Tasks model.
+ * AdminPerformerController implements the CRUD actions for Performer model.
  */
-class AdminTaskController extends Controller
+class PerformerController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -32,27 +30,22 @@ class AdminTaskController extends Controller
     }
 
     /**
-     * Lists all Tasks models.
+     * Lists all Performer models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TaskSearch();
+        $searchModel = new PerformerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dependency = [
-            'class' => 'yii\caching\DbDependency',
-            'sql' => 'select max(updated_at) from tasks',
-        ];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'dependency' => $dependency,
         ]);
     }
 
     /**
-     * Displays a single Tasks model.
+     * Displays a single Performer model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -65,27 +58,25 @@ class AdminTaskController extends Controller
     }
 
     /**
-     * Creates a new Tasks model.
+     * Creates a new Performer model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Tasks();
-        $items = ArrayHelper::map(Performer::find()->all(),'index','name');
+        $model = new Performer();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_task]);
+            return $this->redirect(['view', 'id' => $model->index]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'items' => $items
         ]);
     }
 
     /**
-     * Updates an existing Tasks model.
+     * Updates an existing Performer model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -94,20 +85,18 @@ class AdminTaskController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $items = ArrayHelper::map(Performer::find()->all(),'index','name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_task]);
+            return $this->redirect(['view', 'id' => $model->index]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'items' => $items
         ]);
     }
 
     /**
-     * Deletes an existing Tasks model.
+     * Deletes an existing Performer model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -121,15 +110,15 @@ class AdminTaskController extends Controller
     }
 
     /**
-     * Finds the Tasks model based on its primary key value.
+     * Finds the Performer model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Tasks the loaded model
+     * @return Performer the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Tasks::findOne($id)) !== null) {
+        if (($model = Performer::findOne($id)) !== null) {
             return $model;
         }
 

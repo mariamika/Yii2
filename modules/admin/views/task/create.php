@@ -7,8 +7,8 @@ use yii\helpers\Html;
 /* @var $model app\models\tables\Tasks */
 /* @var $items */
 
-$this->title = 'Create Tasks';
-$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
+$this->title = Yii::t('app','Create Tasks');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','Tasks'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tasks-create">

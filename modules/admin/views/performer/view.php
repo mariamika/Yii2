@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\tables\Performer */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Performers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','Performers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="performer-view">
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->index], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->index], [
+        <?= Html::a(Yii::t('app','Update'), ['update', 'id' => $model->index], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app','Delete'), ['delete', 'id' => $model->index], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,7 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'index',
-            'name',
+            ['attribute' => 'name',
+                'label' => Yii::t('app','Name'),
+                'value' => 'name'],
             'email'
         ],
     ]) ?>

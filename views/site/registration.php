@@ -9,7 +9,7 @@ use yii\bootstrap\ActiveForm;
 <?= $form->field($model, 'password')->passwordInput() ?>
     <div class="form-group">
         <div>
-            <?= Html::submitButton('Регистрация', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Yii::t('app','Registration'), ['class' => 'btn btn-success']) ?>
         </div>
     </div>
 <?php ActiveForm::end() ?>

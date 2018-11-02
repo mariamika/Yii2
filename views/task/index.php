@@ -6,7 +6,7 @@ use yii\widgets\ListView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tasks';
+$this->title = Yii::t('app','My Tasks');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

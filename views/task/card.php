@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
 
-$this->title = 'Задача номер ' . $model->id_task;
-$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
+$this->title = Yii::t('app','Task number ') . $model->id_task;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app','My Tasks'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tasks-view">

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PerformerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Performers';
+$this->title = Yii::t('app','Performers');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="performer-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Performer', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app','Create Performer'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -24,10 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            //'index',
-            'name',
-            'email',
+            ['attribute' => 'name',
+                'label' => Yii::t('app','Name'),
+                'value' => 'name'],
+            ['attribute' => 'email',
+                'label' => 'Email',
+                'value' => 'email'],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

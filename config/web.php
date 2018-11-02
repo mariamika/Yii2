@@ -7,14 +7,21 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log','events'],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Admin',
+        ],
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'language' => 'en',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'eYtO_0EPlpOKNRcgyQr0JXyPk0t4eKKK',
+            'baseUrl' => '',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -45,15 +52,26 @@ $config = [
         'db' => $db,
         'events' => [
             'class' => '\app\components\eventComponents\EventComponent',
-        ]
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
         ],
-        */
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => '\yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    'sourceLanguage' => 'en',
+                ]
+            ]
+        ],
+        'urlManager' => [
+            'class' => 'codemix\localeurls\UrlManager',
+            'enablePrettyUrl' => true,
+            'showScriptName' => true,
+            'rules' => [
+                '/' => 'admin/task/index',
+            ],
+            'languages' => ['ru','en'],
+            'enableDefaultLanguageUrlCode' => true,
+        ],
     ],
     'params' => $params,
 ];

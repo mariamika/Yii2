@@ -35,8 +35,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'namePerformer')->dropDownList($items, ['prompt' => '-Choose a Performer-']) ?>
 
+    <?= $form->field($model, 'image')->fileInput()?>
+
+    <?= $form->field($model, 'smallImg')->textInput(['disabled' => true])->label('title upload image')?>
+
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app','Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
