@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use app\models\tables\Files;
 
 /**
  * AdminTaskController implements the CRUD actions for Tasks model.
@@ -40,15 +41,10 @@ class TaskController extends Controller
     {
         $searchModel = new TaskSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dependency = [
-            'class' => 'yii\caching\DbDependency',
-            'sql' => 'select max(updated_at) from tasks',
-        ];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'dependency' => $dependency,
         ]);
     }
 
@@ -60,8 +56,12 @@ class TaskController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $model_pic = $this->findFiles($model->id_task);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'model_pic' => $model_pic,
         ]);
     }
 
@@ -73,17 +73,22 @@ class TaskController extends Controller
     public function actionCreate()
     {
         $model = new Tasks();
+        $model_pic = new Files();
         $items = ArrayHelper::map(Performer::find()->all(),'index','name');
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->image = UploadedFile::getInstance($model,'image');
-            if ($model->validate()){
-                if ($model->image && $model->uploadFile()){
-                    $name = $model->image->baseName . '.' . $model->image->extension;
-                    $model->bigImg = '/img/big/' . $name;
-                    $model->smallImg = '/img/small/' . $name;
-                }
-                if ($model->save()){
+        if ($model->load(Yii::$app->request->post()) && $model_pic->load(Yii::$app->request->post())) {
+            $model_pic->file = UploadedFile::getInstances($model_pic,'file');
+            if ($model->validate() && $model->save()){
+                if ($model_pic->file && $model_pic->uploadFile()){
+                    foreach ($model_pic->file as $file){
+                        $picture = new Files();
+                        $picture->name = $file->baseName . '.' . $file->extension;
+                        $picture->address_big_picture = '/img/big/' . $picture->name;
+                        $picture->address_small_picture = '/img/small/' . $picture->name;
+                        $picture->tasks_id = $model->id_task;
+                        $picture->save();
+                    }
+                    Yii::$app->cache->flush();
                     return $this->redirect(['view', 'id' => $model->id_task]);
                 }
             }
@@ -91,6 +96,7 @@ class TaskController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'model_pic' => $model_pic,
             'items' => $items
         ]);
     }
@@ -105,15 +111,18 @@ class TaskController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model_pic = $this->findFiles($model->id_task);
         $items = ArrayHelper::map(Performer::find()->all(),'index','name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->cache->flush();
             return $this->redirect(['view', 'id' => $model->id_task]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'items' => $items
+            'model_pic' => $model_pic,
+            'items' => $items,
         ]);
     }
 
@@ -126,7 +135,14 @@ class TaskController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model_pic = $this->findFiles($model->id_task);
+        foreach ($model_pic as $file)
+        {
+            $file->delete();
+        }
+        $model->delete();
+        Yii::$app->cache->flush();
 
         return $this->redirect(['index']);
     }
@@ -142,6 +158,22 @@ class TaskController extends Controller
     {
         if (($model = Tasks::findOne($id)) !== null) {
             return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Finds the Files model based on its id_task value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id_task
+     * @return Files the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findFiles($id_task)
+    {
+        if (($model_pic = Files::getDate($id_task)) !== null) {
+            return $model_pic;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');

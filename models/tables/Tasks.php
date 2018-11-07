@@ -4,8 +4,6 @@ namespace app\models\tables;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
-use yii\imagine\Image;
-use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "tasks".
@@ -18,16 +16,11 @@ use yii\web\UploadedFile;
  * @property int $namePerformer
  * @property string $created_at
  * @property string $updated_at
- * @property string $bigImg
- * @property string $smallImg
  * @property Performer
+ * @property Files
  */
 class Tasks extends \yii\db\ActiveRecord
 {
-    /**
-     * @var UploadedFile
-     */
-    public $image;
 
     public function behaviors()
     {
@@ -60,7 +53,7 @@ class Tasks extends \yii\db\ActiveRecord
                 return $this->dateCreate;}],
             [['dateDeadline'], 'app\components\validators\DeadlineValidator'],
             [['taskName'], 'string', 'max' => 100],
-            [['image'], 'file', 'extensions' => 'jpg, png, gif']
+
         ];
     }
 
@@ -76,7 +69,6 @@ class Tasks extends \yii\db\ActiveRecord
             'priority' => 'Priority',
             'dateCreate' => 'Date Create',
             'dateDeadline' => 'Date Deadline',
-            'image' => 'Image',
         ];
     }
 
@@ -90,20 +82,13 @@ class Tasks extends \yii\db\ActiveRecord
             ->addParams([':id_users' => $id]);
     }
 
-    public function uploadFile(){
-        if ($this->validate()){
-            $baseName = $this->image->getBaseName() . '.' . $this->image->getExtension();
-            $fileName = '@webroot/img/big/' . $baseName;
-            $this->image->saveAs(\Yii::getAlias($fileName),false);
-            Image::thumbnail($fileName,100,100)
-                ->save(\Yii::getAlias('@webroot/img/small/' . $baseName));
-            return true;
-        } else {
-            return false;
-        }
-    }
+
 
     public function getPerformer(){
         return $this->hasOne(Performer::className(), ['index' => 'namePerformer']);
+    }
+
+    public function getFiles(){
+        return $this->hasMany(Files::className(), ['tasks_id' => 'id_task']);
     }
 }

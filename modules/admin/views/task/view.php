@@ -6,6 +6,7 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
+/* @var $model_pic app\models\tables\Files */
 
 $this->title = Yii::t('app','Task number ') . $model->id_task;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app','Tasks'), 'url' => ['index']];
@@ -35,16 +36,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'dateCreate',
             'dateDeadline',
             'performer.name:text:performer',
-            ['attribute' => 'bigImg',
-                'label' => 'Image',
-                'format' => 'raw',
-                'value' => function ($data){
-                    return Html::img(Url::to($data->bigImg),[
-                        'alt' => 'yii2 - picture in GridView',
-                        'style' => 'width:300px;',
-                    ]);
-                }],
         ],
     ]) ?>
 
+    <div>
+        <? if (is_object($model_pic)){
+        echo Html::img(Url::to($model_pic->address_small_picture),['alt' => 'Upload Image for Task']);
+        } else {
+            foreach ($model_pic as $item){
+                echo Html::img(Url::to($item->address_small_picture),[
+                        'alt' => 'Upload Image for Task',
+                        'style' =>[
+                                'margin' => '10px',
+                                'width' => '150px',
+                        ]]);
+            }
+        }?>
+    </div>
 </div>

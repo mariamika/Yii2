@@ -2,9 +2,9 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
+/* @var $model_pic app\models\tables\Files */
 /* @var $items */
 
 $this->title = Yii::t('app','Create Tasks');
@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'model_pic' => $model_pic,
         'items' => $items
     ]) ?>
 

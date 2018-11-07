@@ -12,7 +12,6 @@ use app\models\tables\Tasks;
 class TaskSearch extends Tasks
 {
     public $performer;
-    public $image;
 
     /**
      * {@inheritdoc}
@@ -47,13 +46,13 @@ class TaskSearch extends Tasks
         $query = Tasks::find()
             ->joinWith(['performer'])
             ->select(['tasks.*','performer.*']);
-
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['id_task' => SORT_ASC]],
             'pagination' => [
-                'pageSize' => 2
+                'pageSize' => 5
             ]
         ]);
 
@@ -77,10 +76,14 @@ class TaskSearch extends Tasks
         ]);
 
         $query->andFilterWhere(['like', 'taskName', $this->taskName])
-              ->andFilterWhere(['like', 'dateCreate', $this->dateCreate])
-              ->andFilterWhere(['like', 'dateDeadline', $this->dateDeadline])
-              ->andFilterWhere(['like', 'performer.name', $this->performer]);
+            ->andFilterWhere(['like', 'dateCreate', $this->dateCreate])
+            ->andFilterWhere(['like', 'dateDeadline', $this->dateDeadline])
+            ->andFilterWhere(['like', 'performer.name', $this->performer]);
 
+
+        \Yii::$app->db->cache(function () use ($dataProvider) {
+            $dataProvider->prepare();
+        },3600);
         return $dataProvider;
     }
 }

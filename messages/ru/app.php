@@ -25,4 +25,5 @@ return [
     'Update Task: ' => 'Изменение задачи: ',
     'Task number ' => 'Задача номер ',
     'Registration' => 'Зарегистрироваться',
+    'Files' => 'Файлы'
 ];

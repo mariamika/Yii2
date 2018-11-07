@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -18,9 +17,7 @@ $this->title = Yii::t('app','Tasks');?>
         <?= Html::a(Yii::t('app','Create Tasks'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php if ($this->beginCache('task_',['duration' => 5, 'dependency' => $dependency])){
-
-    echo GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -41,20 +38,9 @@ $this->title = Yii::t('app','Tasks');?>
                 'label' => Yii::t('app','Date Deadline'),
                 'value' => 'dateDeadline'],
             ['attribute' => 'performer',
-                 'label' => Yii::t('app','Performer'),
-                 'value' => 'performer.name'],
-            ['attribute' => 'smallImg',
-                 'label' => Yii::t('app','Image'),
-                 'format' => 'raw',
-                 'value' => function ($data){
-                    return Html::img(Url::to($data->smallImg),[
-                            'alt' => 'yii2 - picture in GridView',
-                            'style' => 'width:100px;',
-                    ]);
-                 }],
+                'label' => Yii::t('app','Performer'),
+                'value' => 'performer.name'],
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]);
-
-    $this->endCache();}?>
+    ]); ?>
 </div>

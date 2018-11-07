@@ -5,12 +5,14 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
+/* @var $model_pic app\models\tables\Files */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="tasks-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'taskName')->textInput(['maxlength' => true]) ?>
 
@@ -35,9 +37,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'namePerformer')->dropDownList($items, ['prompt' => '-Choose a Performer-']) ?>
 
-    <?= $form->field($model, 'image')->fileInput()?>
-
-    <?= $form->field($model, 'smallImg')->textInput(['disabled' => true])->label('title upload image')?>
+    <?php if (is_object($model_pic)){
+        echo $form->field($model_pic, 'file[]')->fileInput(['multiple' => true, 'accept' => 'image/*']);
+    } else {
+        $uploadFiles = '';
+        foreach ($model_pic as $item){
+            $uploadFiles = $uploadFiles . $item->name . '<br>';
+        }
+        //TODO доделать загрузку файлов. Вынести ее в отдельный метод.
+        //echo $form->field($files, 'file[]')->fileInput(['multiple' => true, 'accept' => 'image/*']);
+        echo $uploadFiles ;
+    }?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app','Save'), ['class' => 'btn btn-success']) ?>

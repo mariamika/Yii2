@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
+/* @var $model_pic app\models\tables\Files */
 
 $this->title = Yii::t('app','Update Task: ') . $model->id_task;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app','Tasks'), 'url' => ['index']];
@@ -16,7 +17,8 @@ $this->params['breadcrumbs'][] = Yii::t('app','Update');
 
     <?= $this->render('_form', [
         'model' => $model,
-        'items' => $items
+        'items' => $items,
+        'model_pic' => $model_pic,
     ]) ?>
 
 </div>
