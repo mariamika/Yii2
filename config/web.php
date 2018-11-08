@@ -65,9 +65,12 @@ $config = [
         'urlManager' => [
             'class' => 'codemix\localeurls\UrlManager',
             'enablePrettyUrl' => true,
-            'showScriptName' => true,
+            'showScriptName' => false,
             'rules' => [
-                '/' => 'admin/task/index',
+                '/' => '/',
+                '/<module>' => '/<module>',
+                '/<module>/<controller>' => '/<module>/<controller>',
+                '/<module>/<controller>/<action>' => '/<module>/<controller>/<action>'
             ],
             'languages' => ['ru','en'],
             'enableDefaultLanguageUrlCode' => true,

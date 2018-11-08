@@ -16,7 +16,7 @@ if (!$hideBreadcrumbs){
 <div class="tasks-view">
     <div style="width: 100%; display: flex; justify-content: space-around; flex-wrap: wrap; align-items: center; align-content: center">
         <div style="margin: 20px; width: 400px">
-            <a href="card?id=<?= $model->id_task?>"><h3><?= Html::encode($this->title) ?></h3></a>
+            <a href="task/card?id=<?= $model->id_task?>"><h3><?= Html::encode($this->title) ?></h3></a>
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [

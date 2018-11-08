@@ -31,7 +31,7 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => Yii::t('app','MARO Task Manager'),
-        'brandUrl' => Url::toRoute('/admin/task/index'),
+        'brandUrl' => Url::toRoute('/'),
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -39,9 +39,8 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => \Yii::t('app','Home'), 'url' => ['/admin/task/index']],
-            ['label' => \Yii::t('app','My Tasks'), 'url' => ['/task/index']],
-            ['label' => \Yii::t('app','Performer'), 'url' => ['/admin/performer/index']],
+            ['label' => \Yii::t('app','Admin'), 'url' => ['/admin']],
+            ['label' => \Yii::t('app','My Tasks'), 'url' => ['/task']],
             Yii::$app->user->isGuest ? (
                 ['label' => \Yii::t('app','Login'), 'url' => ['/site/login']]
             ) : (

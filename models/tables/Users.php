@@ -22,6 +22,8 @@ use yii\web\IdentityInterface;
 class Users extends \yii\db\ActiveRecord implements IdentityInterface
 {
 
+    static public $users;
+
     public function behaviors()
     {
         return [
@@ -84,13 +86,6 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-//        foreach (self::$users as $user) {
-//            if ($user['accessToken'] === $token) {
-//                return new static($user);
-//            }
-//        }
-//
-//        return null;
     }
 
     /**
@@ -140,8 +135,7 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        //return $this->password === \Yii::$app->security->validatePassword($password, $this->password);
-        return $this->password === $password; //У меня не работает почему-то предыдущая строчка!!!
+        return $this->password === $password;
     }
 
     public function getUsers(){
