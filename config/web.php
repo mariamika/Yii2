@@ -11,6 +11,12 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\Admin',
         ],
+        'base' => [
+            'class' => 'app\modules\base\Base',
+        ],
+        'myTask' => [
+            'class' => 'app\modules\myTask\MyTask',
+        ]
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -70,10 +76,13 @@ $config = [
                 '/' => '/',
                 '/<module>' => '/<module>',
                 '/<module>/<controller>' => '/<module>/<controller>',
-                '/<module>/<controller>/<action>' => '/<module>/<controller>/<action>'
+                '/<module>/<controller>/<action>' => '/<module>/<controller>/<action>',
             ],
             'languages' => ['ru','en'],
             'enableDefaultLanguageUrlCode' => true,
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
         ],
     ],
     'params' => $params,

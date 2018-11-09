@@ -40,7 +40,8 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => \Yii::t('app','Admin'), 'url' => ['/admin']],
-            ['label' => \Yii::t('app','My Tasks'), 'url' => ['/task']],
+            ['label' => \Yii::t('app','Tasks'), 'url' => ['/base']],
+            ['label' => \Yii::t('app','My Tasks'), 'url' => ['/myTask']],
             Yii::$app->user->isGuest ? (
                 ['label' => \Yii::t('app','Login'), 'url' => ['/site/login']]
             ) : (

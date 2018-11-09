@@ -4,6 +4,7 @@ namespace app\models\tables;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\rbac\Role;
 use yii\web\IdentityInterface;
 
 /**
@@ -17,7 +18,9 @@ use yii\web\IdentityInterface;
  * @property string $created_at
  * @property string $updated_at
  * @property string $hash_password
+ * @property int $role_id
  * @property Performer
+ * @property Role
  */
 class Users extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -140,5 +143,9 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function getUsers(){
         return $this->hasOne(Performer::className(),['id_users' => 'id']);
+    }
+
+    public function getRole(){
+        return $this->hasOne(\app\models\tables\Role::className(),['id_role' => 'role_id']);
     }
 }

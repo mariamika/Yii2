@@ -12,6 +12,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public $accessToken;
     public $created_at;
     public $updated_at;
+    public $role_id;
 
     /**
      * {@inheritdoc}
