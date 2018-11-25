@@ -2,16 +2,17 @@
 
 namespace app\modules\admin\controllers;
 
-use app\models\tables\Performer;
 use Yii;
+use app\models\tables\Performer;
 use app\models\tables\Tasks;
 use app\models\TaskSearch;
+use app\models\tables\Files;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use app\models\tables\Files;
+
 
 /**
  * AdminTaskController implements the CRUD actions for Tasks model.

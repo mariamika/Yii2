@@ -13,7 +13,7 @@ use yii\db\Expression;
  * @property string $email
  * @property string $created_at
  * @property string $updated_at
- * @proprerty int $id_users
+ * @property int $id_users
  * @property Tasks[] $tasks
  * @property Users
  */
